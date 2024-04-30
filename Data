@@ -1,0 +1,12 @@
+import pandas as pd
+
+def advanced_data_manipulation(df):
+    df['date'] = pd.to_datetime(df['date'])
+    df['month'] = df['date'].dt.month
+    df['day_of_week'] = df['date'].dt.dayofweek
+    df['is_weekend'] = df['day_of_week'].apply(lambda x: 1 if x in [5, 6] else 0)
+    df['is_business_day'] = df['day_of_week'].apply(lambda x: 1 if x in [0, 1, 2, 3, 4] else 0)
+    df['hour'] = df['date'].dt.hour
+    df['minute'] = df['date'].dt.minute
+    df['time_of_day'] = df['hour'].apply(lambda x: 'Morning' if 5 <= x < 12 else ('Afternoon' if 12 <= x < 17 else 'Evening'))
+    return df
